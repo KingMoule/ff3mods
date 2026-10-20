@@ -20,12 +20,31 @@ désactive le patch.
 
 ## Patchs
 
-| Patch | Effet |
-|---|---|
-| `patches/bugfixes/ultimate_damage.asm` | Plus de débordement des dégâts au-delà de 65 535; Genji Glove et Offering ne réduisent que Fight/Capture (Leet Sketcher) |
-| `patches/balance/cyan_swdtech.asm` | Jauge SwdTech 2x plus rapide; toutes les SwdTech basées sur l'arme et la Vigor (multiple d'un Fight). Requiert `ultimate_damage` |
+**Bug fixes, niveau 1** (combat et bugs qui cassent le jeu), dans `patches/bugfixes/` :
+
+- `evade.asm` : la stat Evade sert enfin aux attaques physiques (Blind et Beads fonctionnent)
+- `vanish_doom.asm` : Vanish ne rend plus X-Zone/Doom mortels sur les cibles protégées
+- `ultimate_damage.asm` : plus de débordement des dégâts; Genji Glove/Offering ne réduisent que Fight/Capture
+- 25 correctifs de Leet Sketcher (Zombie/Rippler, Imp's Retort, Self Sneeze, Dead in the Air,
+  Smoke and Mirrors, Soul Saved, Morph Mayhem, etc.); chaque fichier décrit le bug corrigé
+
+Le bug de Sketch est déjà corrigé dans la ROM 1.1 d'origine.
+
+**Balance**, dans `patches/balance/` :
+
+- `cyan_swdtech.asm` : jauge SwdTech 2x plus rapide; toutes les SwdTech basées sur l'arme et la
+  Vigor (multiple d'un Fight). Requiert `ultimate_damage.asm`.
 
 L'espace libre utilisé dans la ROM est tenu à jour dans `docs/freespace.md`.
+
+## Correctifs générés depuis des IPS
+
+Les correctifs de Leet Sketcher sont générés depuis ses IPS publiés :
+
+1. Mettre les IPS listés dans `scripts/bugfixes_level1.json` dans `vendor/leet/` (non versionné).
+2. `python scripts/ips2asar.py scripts/bugfixes_level1.json` régénère les `.asm`.
+3. Après `python build.py`, `python scripts/verify_ips.py scripts/bugfixes_level1.json` liste
+   les octets où le build diffère des IPS appliqués en séquence (seulement nos propres patchs).
 
 ## Crédits
 

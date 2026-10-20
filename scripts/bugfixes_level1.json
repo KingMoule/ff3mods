@@ -1,0 +1,234 @@
+{
+  "rom": "rom/ff3_us_11.sfc",
+  "ips_dir": "vendor/leet",
+  "patches": [
+    {
+      "ips": "FF3-UltimateDamage-N.ips"
+    },
+    {
+      "ips": "FF3-DeadHare-N.ips",
+      "out": "patches/bugfixes/dead_hare.asm",
+      "title": "Dead Hare v1.5 by Leet Sketcher",
+      "desc": [
+        "Monsters already removed from battle (e.g. killed by the Scimitar's instant",
+        "kill) no longer counterattack."
+      ]
+    },
+    {
+      "ips": "FF3-ItemMagicCounter-ND.ips",
+      "out": "patches/bugfixes/item_magic_counter.asm",
+      "title": "Item/Magic Counter v1.2 (Dead Hare compatible version) by Leet Sketcher",
+      "desc": [
+        "Monsters that counter one specific spell or item (SrBehemoth, FlameEater...)",
+        "no longer keep countering every attack after being hit by it.",
+        "Requires dead_hare.asm first."
+      ]
+    },
+    {
+      "ips": "FF3-ZombieRipA-N.ips",
+      "out": "patches/bugfixes/zombie_rippler.asm",
+      "title": "Zombie/Rippler v1.2, fix A + B by Leet Sketcher",
+      "desc": [
+        "Rippler no longer swaps hidden statuses (Morph, Dog Block...). A target",
+        "freed from Zombie by Rippler is healed 1/8 of its max HP (like Revivify)",
+        "instead of staying alive at 0 HP."
+      ]
+    },
+    {
+      "ips": "FF3-ZombieRipB-N.ips",
+      "out": "patches/bugfixes/zombie_rippler.asm"
+    },
+    {
+      "ips": "FF3-ImpRetort-N.ips",
+      "out": "patches/bugfixes/imp_retort.asm",
+      "title": "Imp's Retort v1.5 by Leet Sketcher",
+      "desc": [
+        "An Imp Cyan whose Retort fails no longer counters every physical attack for",
+        "the rest of the battle; Retort is cleared after every Fight."
+      ]
+    },
+    {
+      "ips": "FF3-SelfSneeze-N.ips",
+      "out": "patches/bugfixes/self_sneeze.asm",
+      "title": "Self Sneeze v2.0 by Leet Sketcher",
+      "desc": [
+        "The Fake Mustache control link is cut when Relm jumps with Palidor or when",
+        "either side is removed from battle."
+      ]
+    },
+    {
+      "ips": "FF3-DeadInAir-N.ips",
+      "out": "patches/bugfixes/dead_in_the_air.asm",
+      "title": "Dead in the Air v2.4 by Leet Sketcher",
+      "desc": [
+        "A Condemned character whose timer runs out mid-Jump gets Wound instead of",
+        "staying alive at 0 HP; items are restored after every battle ending; the",
+        "Esper +30% HP/MP bonus is computed correctly."
+      ]
+    },
+    {
+      "ips": "FF3-SmokeMirrors-N.ips",
+      "out": "patches/bugfixes/smoke_and_mirrors.asm",
+      "title": "Smoke and Mirrors v1.0 by Leet Sketcher",
+      "desc": [
+        "A Muddled character's Smoke Bomb no longer removes the monsters (which won",
+        "the battle) instead of the party."
+      ]
+    },
+    {
+      "ips": "FF3-SoulSavedA-N.ips",
+      "out": "patches/bugfixes/soul_saved.asm",
+      "title": "Soul Saved v1.4, fix A by Leet Sketcher",
+      "desc": [
+        "Soul Savers are immune to instant death, so X-Zone can no longer end the",
+        "Wrexsoul battle early."
+      ]
+    },
+    {
+      "ips": "FF3-MorphMayhem-N.ips",
+      "out": "patches/bugfixes/morph_mayhem.asm",
+      "title": "Morph Mayhem v1.2 by Leet Sketcher",
+      "desc": [
+        "The Morph gauge no longer drains while Terra is asleep, stopped or frozen,",
+        "while someone uses Quick, or after she leaves battle."
+      ]
+    },
+    {
+      "ips": "FF3-RockBottom-N.ips",
+      "out": "patches/bugfixes/rock_bottom.asm",
+      "title": "Rock Bottom v1.3 by Leet Sketcher",
+      "desc": [
+        "Near Fatal is applied again when Petrify is cured on a character under 1/8",
+        "of max HP."
+      ]
+    },
+    {
+      "ips": "FF3-StatusUnknown-N1.ips",
+      "out": "patches/bugfixes/status_unknown.asm",
+      "title": "Status Unknown v1.1 by Leet Sketcher",
+      "desc": [
+        "Statuses with no outline color no longer display blank and hide other",
+        "statuses such as Life 3 or Float."
+      ]
+    },
+    {
+      "ips": "FF3-ImpSkimp-N1.ips",
+      "out": "patches/bugfixes/imp_skimp.asm",
+      "title": "Imp Skimp v1.4 by Leet Sketcher",
+      "desc": [
+        "The Imp sprite follows the Imp status instead of the Imp spell (a missed",
+        "Imp no longer turns the target, a Runic-absorbed Imp no longer flashes Celes)."
+      ]
+    },
+    {
+      "ips": "FF3-ImpRage-N.ips",
+      "out": "patches/bugfixes/imp_rage.asm",
+      "title": "Imp's Rage v1.1 by Leet Sketcher",
+      "desc": [
+        "Rage and Dance can no longer be used while the character is an Imp."
+      ]
+    },
+    {
+      "ips": "FF3-ImpCall-N.ips",
+      "out": "patches/bugfixes/imp_call.asm",
+      "title": "Imp's Call v1.1 by Leet Sketcher",
+      "desc": [
+        "An Esper summon cancelled by Imp no longer uses up the summon for the battle."
+      ]
+    },
+    {
+      "ips": "FF3-ShadowStatus-N.ips",
+      "out": "patches/bugfixes/shadow_status.asm",
+      "title": "Shadow's Status v1.2 by Leet Sketcher",
+      "desc": [
+        "Lasting statuses (Vanish, Float...) are removed from Shadow after the",
+        "Floating Continent so he doesn't carry them to the Colosseum."
+      ]
+    },
+    {
+      "ips": "FF3-StoneFaced-N.ips",
+      "out": "patches/bugfixes/stone_faced.asm",
+      "title": "Stone Faced v1.2 by Leet Sketcher",
+      "desc": [
+        "Petrified monsters no longer repeat their last attack after every turn."
+      ]
+    },
+    {
+      "ips": "FF3-StoneCold-N.ips",
+      "out": "patches/bugfixes/stone_cold.asm",
+      "title": "Stone Cold v1.2 by Leet Sketcher",
+      "desc": [
+        "Petrify no longer blocks Revivify's healing, so a Petrified Zombie no longer",
+        "ends up at 0 HP once Petrify is cured."
+      ]
+    },
+    {
+      "ips": "FF3-KillerLife3-N.ips",
+      "out": "patches/bugfixes/killer_life_3.asm",
+      "title": "Killer Life 3 v1.4 by Leet Sketcher",
+      "desc": [
+        "An Undead monster killed by an X-weapon instant kill no longer revives with",
+        "Life 3 only to die again."
+      ]
+    },
+    {
+      "ips": "FF3-ZombieTapirA-N.ips",
+      "out": "patches/bugfixes/zombie_tapir.asm",
+      "title": "Zombie/Tapir v1.2, fix A by Leet Sketcher",
+      "desc": [
+        "Tapir curing Zombie heals 1/8 of max HP instead of leaving the character",
+        "alive at 0 HP."
+      ]
+    },
+    {
+      "ips": "FF3-DoubleBlock-N.ips",
+      "out": "patches/bugfixes/double_block.asm",
+      "title": "Double Block v1.1 by Leet Sketcher",
+      "desc": [
+        "A living character with a shield no longer blocks a Fenix Down twice."
+      ]
+    },
+    {
+      "ips": "FF3-ChanceOffering-N.ips",
+      "out": "patches/bugfixes/chance_offering.asm",
+      "title": "Chance Offering v1.0 by Leet Sketcher",
+      "desc": [
+        "The Offering halves Dice/Fixed Dice damage like other weapons."
+      ]
+    },
+    {
+      "ips": "FF3-HalfKnife-N.ips",
+      "out": "patches/bugfixes/half_knife.asm",
+      "title": "Half Knife v1.1 by Leet Sketcher",
+      "desc": [
+        "The Offering also halves the ValiantKnife's bonus damage."
+      ]
+    },
+    {
+      "ips": "FF3-ByeByeBreath-N.ips",
+      "out": "patches/bugfixes/bye_bye_breath.asm",
+      "title": "Bye Bye Breath v1.2 by Leet Sketcher",
+      "desc": [
+        "Fixes two crashes in the second Phunbaba fight (a Charmed Phunbaba blowing a",
+        "member out of a full party, and an empty party after a lone KO)."
+      ]
+    },
+    {
+      "ips": "FF3-OffDeathRow-N.ips",
+      "out": "patches/bugfixes/off_death_row.asm",
+      "title": "Off Death Row v1.2 by Leet Sketcher",
+      "desc": [
+        "Safety Bit and Memento Ring clear Condemned when they save the character",
+        "instead of leaving the status active."
+      ]
+    },
+    {
+      "ips": "FF3-Throwback-N1.ips",
+      "out": "patches/bugfixes/throwback.asm",
+      "title": "Throwback v1.1 by Leet Sketcher",
+      "desc": [
+        "Shadow steps forward and throws normally when his target has Jumped."
+      ]
+    }
+  ]
+}

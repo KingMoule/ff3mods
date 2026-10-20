@@ -1,7 +1,34 @@
 # Patches applied by build.py, in order. Comment a line out to disable a patch.
 
-# --- bug fixes ---
+# --- bug fixes, level 1 (order matters: see scripts/bugfixes_level1.json) ---
+patches/bugfixes/evade.asm
+patches/bugfixes/vanish_doom.asm
 patches/bugfixes/ultimate_damage.asm
+patches/bugfixes/dead_hare.asm
+patches/bugfixes/item_magic_counter.asm
+patches/bugfixes/zombie_rippler.asm
+patches/bugfixes/imp_retort.asm
+patches/bugfixes/self_sneeze.asm
+patches/bugfixes/dead_in_the_air.asm
+patches/bugfixes/smoke_and_mirrors.asm
+patches/bugfixes/soul_saved.asm
+patches/bugfixes/morph_mayhem.asm
+patches/bugfixes/rock_bottom.asm
+patches/bugfixes/status_unknown.asm
+patches/bugfixes/imp_skimp.asm
+patches/bugfixes/imp_rage.asm
+patches/bugfixes/imp_call.asm
+patches/bugfixes/shadow_status.asm
+patches/bugfixes/stone_faced.asm
+patches/bugfixes/stone_cold.asm
+patches/bugfixes/killer_life_3.asm
+patches/bugfixes/zombie_tapir.asm
+patches/bugfixes/double_block.asm
+patches/bugfixes/chance_offering.asm
+patches/bugfixes/half_knife.asm
+patches/bugfixes/bye_bye_breath.asm
+patches/bugfixes/off_death_row.asm
+patches/bugfixes/throwback.asm
 
 # --- balance (cyan_swdtech requires ultimate_damage) ---
 patches/balance/cyan_swdtech.asm
