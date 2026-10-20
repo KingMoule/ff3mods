@@ -5,7 +5,9 @@ Update this file whenever a patch claims space.
 
 | Region | Size | Used by |
 |---|---|---|
-| C0/D613-C0/DF9F | 2445 | |
+| C0/D613-C0/D82E | 540 | |
+| C0/D82F-C0/D8B8 | 138 | `bugfixes/trigger_happy.asm` |
+| C0/D8B9-C0/DF9F | 1767 | |
 | C0/EC20-C0/EE9F | 640 | |
 | C2/6469-C2/64CF | 103 | `balance/cyan_swdtech.asm` |
 | C2/64D0-C2/65BD | 238 | |
@@ -26,6 +28,10 @@ Update this file whenever a patch claims space.
 
 Bank C1 (battle graphics and menus) has no free run of 64+ bytes; code
 needed there will have to `jsl` to another bank.
+
+Leet Sketcher's fixes also reuse some code and data they free up themselves
+(outside these `$FF` regions); `scripts/verify_ips.py` and the generated
+`.asm` files show every byte they write.
 
 To see which bytes a build changed inside these regions, compare
 `build/clean.sfc` and `build/ff3mods.sfc`.

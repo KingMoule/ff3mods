@@ -1,6 +1,6 @@
 # Patches applied by build.py, in order. Comment a line out to disable a patch.
 
-# --- bug fixes, level 1 (order matters: see scripts/bugfixes_level1.json) ---
+# --- bug fixes, level 1 (order matters: see scripts/leet_fixes.json) ---
 patches/bugfixes/evade.asm
 patches/bugfixes/vanish_doom.asm
 patches/bugfixes/ultimate_damage.asm
@@ -29,6 +29,30 @@ patches/bugfixes/half_knife.asm
 patches/bugfixes/bye_bye_breath.asm
 patches/bugfixes/off_death_row.asm
 patches/bugfixes/throwback.asm
+
+# --- bug fixes, level 2 (events, maps, softlocks) ---
+patches/bugfixes/save_point_switch.asm
+patches/bugfixes/menu_malarky.asm
+patches/bugfixes/returners_day_off.asm
+patches/bugfixes/shadow_gone.asm
+patches/bugfixes/game_over.asm
+patches/bugfixes/map_mishap.asm
+patches/bugfixes/stepping_out.asm
+patches/bugfixes/unequipium.asm
+patches/bugfixes/trigger_happy.asm
+patches/bugfixes/walk_this_way.asm
+patches/bugfixes/multiple_events.asm
+patches/bugfixes/bland_entrance.asm
+patches/bugfixes/castle_party.asm
+patches/bugfixes/narshes_door.asm
+patches/bugfixes/anonymous_attack.asm
+patches/bugfixes/caravaggio.asm
+patches/bugfixes/chain_of_command.asm
+patches/bugfixes/shadow_copy.asm
+patches/bugfixes/precious_jewels.asm
+patches/bugfixes/phoenix_chest.asm
+patches/bugfixes/off_the_hook.asm
+patches/bugfixes/loud_music.asm
 
 # --- balance (cyan_swdtech requires ultimate_damage) ---
 patches/balance/cyan_swdtech.asm

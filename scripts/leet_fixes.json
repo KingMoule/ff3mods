@@ -229,6 +229,202 @@
       "desc": [
         "Shadow steps forward and throws normally when his target has Jumped."
       ]
+    },
+    {
+      "ips": "FF3-SavePoint-N.ips",
+      "out": "patches/bugfixes/save_point_switch.asm",
+      "title": "Save Point Switch v1.2 by Leet Sketcher",
+      "desc": [
+        "In Phoenix Cave and Kefka's Tower, switching to a party that isn't on a",
+        "Save Point no longer lets it save or use Tents and Sleeping Bags."
+      ]
+    },
+    {
+      "ips": "FF3-MenuMalarky-N.ips",
+      "out": "patches/bugfixes/menu_malarky.asm",
+      "title": "Menu Malarky v1.3 by Leet Sketcher",
+      "desc": [
+        "Timing tricks with the Main Menu can no longer skip events: Locke passing",
+        "the South Figaro guard (missing Celes), Inferno and Poltergeist in Kefka's",
+        "Tower. Applied after save_point_switch.asm as the author requires."
+      ]
+    },
+    {
+      "ips": "FF3-ReturnersDayOff-N.ips",
+      "out": "patches/bugfixes/returners_day_off.asm",
+      "title": "Returner's Day Off v1.4 by Leet Sketcher",
+      "desc": [
+        "Two events account for Gau being left on the Veldt; this could leave",
+        "characters behind and freeze the game after the Esper World flashback."
+      ]
+    },
+    {
+      "ips": "FF3-ShadowGone-N.ips",
+      "out": "patches/bugfixes/shadow_gone.asm",
+      "title": "Shadow Gone v1.3 by Leet Sketcher",
+      "desc": [
+        "When Shadow leaves an all-Gau party entering Narshe, the party selection",
+        "screen opens instead of leaving an empty party (forced reset)."
+      ]
+    },
+    {
+      "ips": "FF3-GameOver-N.ips",
+      "out": "patches/bugfixes/game_over.asm",
+      "title": "Game Over v1.0 by Leet Sketcher",
+      "desc": [
+        "A defeat on the world map no longer leaves an event pointer on the stack",
+        "(52 defeats in a row overwrote RAM and could freeze the game)."
+      ]
+    },
+    {
+      "ips": "FF3-MapMishap-N.ips",
+      "out": "patches/bugfixes/map_mishap.asm",
+      "title": "Map Mishap v1.8 by Leet Sketcher",
+      "desc": [
+        "Fixes seven map glitches (see Leet Sketcher's readme for the list)."
+      ]
+    },
+    {
+      "ips": "FF3-SteppingOut-N.ips",
+      "out": "patches/bugfixes/stepping_out.asm",
+      "title": "Stepping Out v1.0 by Leet Sketcher",
+      "desc": [
+        "Holding Y while stepping on an event tile in split-party dungeons no longer",
+        "switches parties before the event fires (skipping it)."
+      ]
+    },
+    {
+      "ips": "FF3-Unequipium-N.ips",
+      "out": "patches/bugfixes/unequipium.asm",
+      "title": "Unequipium v1.1 by Leet Sketcher",
+      "desc": [
+        "Events that remove gear from characters outside the party now refresh their",
+        "stats, so HP/MP no longer display wrong after swapping members."
+      ]
+    },
+    {
+      "ips": "FF3-TriggerHappy-N.ips",
+      "out": "patches/bugfixes/trigger_happy.asm",
+      "title": "Trigger Happy v1.0 by Leet Sketcher",
+      "desc": [
+        "A timer event no longer overrides a tile event firing on the same frame",
+        "(Zone Eater's cave: skipping an exit or surviving the falling ceiling)."
+      ]
+    },
+    {
+      "ips": "FF3-WalkThisWay-N.ips",
+      "out": "patches/bugfixes/walk_this_way.asm",
+      "title": "Walk This Way v1.0 by Leet Sketcher",
+      "desc": [
+        "Diagonal stairs run the normal per-step handling (poison damage, Tintinabar",
+        "healing); Terra no longer walks an extra tile when Zone Eater's ceiling falls."
+      ]
+    },
+    {
+      "ips": "FF3-MultipleEvents-N.ips",
+      "out": "patches/bugfixes/multiple_events.asm",
+      "title": "Multiple Events Fix v1.10 by Leet Sketcher",
+      "desc": [
+        "Fixes ten events that are wrong in different ways (see Leet Sketcher's",
+        "readme for the list)."
+      ]
+    },
+    {
+      "ips": "FF3-BlandEntrance-N.ips",
+      "out": "patches/bugfixes/bland_entrance.asm",
+      "title": "Bland Entrance v1.2 by Leet Sketcher",
+      "desc": [
+        "Fixes several problems in the opening events of the game."
+      ]
+    },
+    {
+      "ips": "FF3-CastleParty-N.ips",
+      "out": "patches/bugfixes/castle_party.asm",
+      "title": "Castle Party v1.3 by Leet Sketcher",
+      "desc": [
+        "Sabin's party is no longer reordered when switching back from Cyan's scenes",
+        "in Doma during the Imperial Camp infiltration."
+      ]
+    },
+    {
+      "ips": "FF3-NarsheDoor-N.ips",
+      "out": "patches/bugfixes/narshes_door.asm",
+      "title": "Narshe's Door v1.3 by Leet Sketcher",
+      "desc": [
+        "Narshe's secret cave door no longer closes again after opening the Main",
+        "Menu in the World of Ruin."
+      ]
+    },
+    {
+      "ips": "FF3-AnonymousAttack-N1.ips",
+      "out": "patches/bugfixes/anonymous_attack.asm",
+      "title": "Anonymous Attack v1.3 by Leet Sketcher",
+      "desc": [
+        "Kefka's special attack during the Sealed Gate stall is loaded at battle",
+        "start (it always missed and showed a blank name)."
+      ]
+    },
+    {
+      "ips": "FF3-Caravaggio-N.ips",
+      "out": "patches/bugfixes/caravaggio.asm",
+      "title": "Caravaggio v1.3 by Leet Sketcher",
+      "desc": [
+        "Roulette used through Sketch or Rage shows its targeting pointer and can",
+        "target the whole field again."
+      ]
+    },
+    {
+      "ips": "FF3-ChainOfCommand-N.ips",
+      "out": "patches/bugfixes/chain_of_command.asm",
+      "title": "Chain of Command v1.3 by Leet Sketcher",
+      "desc": [
+        "Gogo's command names changed by relics (Slot -> GP Rain...) also show in",
+        "his Status menu command selection."
+      ]
+    },
+    {
+      "ips": "FF3-ShadowCopy-N.ips",
+      "out": "patches/bugfixes/shadow_copy.asm",
+      "title": "Shadow Copy v1.1 by Leet Sketcher",
+      "desc": [
+        "Gogo's Mimic can no longer copy Shadow's actions when Shadow is fought in",
+        "the Dragon's Neck Colosseum."
+      ]
+    },
+    {
+      "ips": "FF3-PreciousJewels-N.ips",
+      "out": "patches/bugfixes/precious_jewels.asm",
+      "title": "Precious Jewels v1.0 by Leet Sketcher",
+      "desc": [
+        "Standing next to the Gem Box at the top of the Fanatics' Tower without",
+        "taking it no longer triggers the cultists' ambush."
+      ]
+    },
+    {
+      "ips": "FF3-PhoenixChest-N.ips",
+      "out": "patches/bugfixes/phoenix_chest.asm",
+      "title": "Phoenix Chest v1.3 by Leet Sketcher",
+      "desc": [
+        "The Phoenix Cave chest Locke opened no longer closes again for good."
+      ]
+    },
+    {
+      "ips": "FF3-OffTheHook-N.ips",
+      "out": "patches/bugfixes/off_the_hook.asm",
+      "title": "Off the Hook v1.3 by Leet Sketcher",
+      "desc": [
+        "A party member can no longer end up above the hook near the Phoenix Cave",
+        "entrance."
+      ]
+    },
+    {
+      "ips": "FF3-LoudMusic-N.ips",
+      "out": "patches/bugfixes/loud_music.asm",
+      "title": "Loud Music v1.0 by Leet Sketcher",
+      "desc": [
+        "The Opera House organ is muffled in the lobby as intended; removes a Kefka's",
+        "Tower trigger that grabs a hook that isn't there."
+      ]
     }
   ]
 }

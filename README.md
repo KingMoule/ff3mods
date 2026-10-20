@@ -28,6 +28,9 @@ désactive le patch.
 - 25 correctifs de Leet Sketcher (Zombie/Rippler, Imp's Retort, Self Sneeze, Dead in the Air,
   Smoke and Mirrors, Soul Saved, Morph Mayhem, etc.); chaque fichier décrit le bug corrigé
 
+**Bug fixes, niveau 2** (événements, cartes, softlocks hors combat) : 22 correctifs de Leet Sketcher
+(Menu Malarky, Returner's Day Off, Shadow Gone, Game Over, Map Mishap, Multiple Events, etc.).
+
 Le bug de Sketch est déjà corrigé dans la ROM 1.1 d'origine.
 
 **Balance**, dans `patches/balance/` :
@@ -41,9 +44,9 @@ L'espace libre utilisé dans la ROM est tenu à jour dans `docs/freespace.md`.
 
 Les correctifs de Leet Sketcher sont générés depuis ses IPS publiés :
 
-1. Mettre les IPS listés dans `scripts/bugfixes_level1.json` dans `vendor/leet/` (non versionné).
-2. `python scripts/ips2asar.py scripts/bugfixes_level1.json` régénère les `.asm`.
-3. Après `python build.py`, `python scripts/verify_ips.py scripts/bugfixes_level1.json` liste
+1. Mettre les IPS listés dans `scripts/leet_fixes.json` dans `vendor/leet/` (non versionné).
+2. `python scripts/ips2asar.py scripts/leet_fixes.json` régénère les `.asm`.
+3. Après `python build.py`, `python scripts/verify_ips.py scripts/leet_fixes.json` liste
    les octets où le build diffère des IPS appliqués en séquence (seulement nos propres patchs).
 
 ## Crédits
