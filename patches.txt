@@ -56,3 +56,6 @@ patches/bugfixes/loud_music.asm
 
 # --- balance (cyan_swdtech requires ultimate_damage) ---
 patches/balance/cyan_swdtech.asm
+
+# --- features ---
+patches/features/blitz_menu.asm

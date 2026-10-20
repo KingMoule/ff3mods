@@ -38,6 +38,11 @@ Le bug de Sketch est déjà corrigé dans la ROM 1.1 d'origine.
 - `cyan_swdtech.asm` : jauge SwdTech 2x plus rapide; toutes les SwdTech basées sur l'arme et la
   Vigor (multiple d'un Fight). Requiert `ultimate_damage.asm`.
 
+**Fonctionnalités**, dans `patches/features/` :
+
+- `blitz_menu.asm` : la commande Blitz ouvre une liste des Blitz appris (fenêtre 4 x 2 comme Magitek);
+  on choisit le Blitz puis la cible. Plus de combinaisons de touches.
+
 L'espace libre utilisé dans la ROM est tenu à jour dans `docs/freespace.md`.
 
 ## Correctifs générés depuis des IPS
