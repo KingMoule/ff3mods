@@ -240,16 +240,16 @@ def main():
             for lid in loc_of_map.get(mp, [])[:1]:
                 if W.LOC[lid][0] not in hint:
                     hint.append(W.LOC[lid][0])
-        txt = e["name"] + " — " + (e["bonus"] or "pas de bonus") + (" · indice ROM : " + ", ".join(hint) if hint else "")
+        txt = e["name"] + " — " + (e["bonus"] or "no bonus") + (" · ROM hint: " + ", ".join(hint) if hint else "")
         row = {"id": f"esp{e['id']}", "k": "esper", "t": txt, "g": True}
         if e["name"] == "Ifrit":
             row["m"] = True
         esp_rows.append(row)
-    tracker("t_esper", "Suivi des 27 Espers", "Cochez les Espers obtenus. Les lieux sont des indices déduits des scripts de la ROM (non vérifiés).", esp_rows)
+    tracker("t_esper", "Esper tracker (27)", "Tick the Espers you have obtained. Locations are hints inferred from the ROM scripts (unverified).", esp_rows)
     char_rows = [{"id": f"chr{c['id']}", "k": "char", "t": c["name"] + " — " + ", ".join(c["cmds"])} for c in chars if c["id"] < 14]
-    tracker("t_char", "Suivi des 14 personnages", "Cochez chaque personnage recruté.", char_rows)
-    lore_rows = [{"id": f"lore{l['id']}", "k": "learn", "t": l["name"] + (" (connu au départ)" if l["idx"] in misc["lore_start"] else "")} for l in misc["lores"]]
-    tracker("t_lore", "Suivi des 24 Lores", "Cochez les Lores appris par Strago (voir Plus > Lores pour savoir qui les lance).", lore_rows)
+    tracker("t_char", "Character tracker (14)", "Tick each recruited character.", char_rows)
+    lore_rows = [{"id": f"lore{l['id']}", "k": "learn", "t": l["name"] + (" (known at the start)" if l["idx"] in misc["lore_start"] else "")} for l in misc["lores"]]
+    tracker("t_lore", "Lore tracker (24)", "Tick the Lores Strago has learned (see More > Lores to see who casts them).", lore_rows)
 
     # coffres monstres
     for ch in maps["chests"]:

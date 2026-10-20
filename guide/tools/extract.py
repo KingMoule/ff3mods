@@ -41,51 +41,51 @@ BATTLE_CMDS = ["Fight", "Item", "Magic", "Morph", "Revert", "Steal", "Capture", 
                "Rage", "Leap", "Mimic", "Dance", "Row", "Defend", "Jump", "X-Magic",
                "GP Rain", "Summon", "Health", "Shock", "Possess", "Magitek"]
 ITEM_TYPES = ["tool", "weapon", "armor", "shield", "helmet", "relic", "consumable"]
-RELIC1 = ["Atlas Armlet : +50 % dégâts physiques", "Earring : +100 % dégâts magiques",
-          "PV max +25 %", "PV max +50 %", "PV max +12,5 %", "PM max +25 %", "PM max +50 %",
-          "PM max +12,5 %"]
-RELIC2 = ["Quick au 1er tour (Gale Hairpin)", "Évite les attaques par l'arrière (Back Guard)",
+RELIC1 = ["Atlas Armlet: +50% physical damage", "Earring: +100% magic damage",
+          "Max HP +25%", "Max HP +50%", "Max HP +12.5%", "Max MP +25%", "Max MP +50%",
+          "Max MP +12.5%"]
+RELIC2 = ["Quick on turn 1 (Gale Hairpin)", "Avoids back attacks (Back Guard)",
           "Jump", "X-Magic", "Control", "GP Rain", "Capture", "Dragon Horn : Jump"]
-RELIC3 = ["Vol x2 (Sneak Ring)", "Magie +50 % (Earring simple)", "Sketch amélioré",
-          "Control amélioré", "Précision maximale", "Coût en PM /2", "Coût en PM = 1",
-          "Vigor +50 %"]
-RELIC4 = ["Fight x4 (Offering)", "Contre-attaque aléatoire", "Esquive aléatoire (Beads)",
-          "Gauntlet : BP de l'arme x7/4", "Genji Glove : 2 armes", "Merit Award",
-          "Couverture (True Knight)", None]
-RELIC5 = ["Shell si PV bas", "Safe si PV bas", "Reflect si PV bas", "EXP x2", "Gil x2", None, None,
-          "Mort-vivant (Relic Ring)"]
-WEAPON_SPECIAL = ["", "ThiefKnife (Steal)", "Atma Weapon", "Mort instantanée", "Man Eater",
-                  "Drainer", "Soul Sabre", "Crit. MP", "Fort vs volants", "Dice", "ValiantKnife",
-                  "Tempest", "Heal Rod", "Scimitar", "Ogre Nix", "Crit. MP+"]
-MONSTER_FLAGS = ["Meurt à 0 MP", None, "Nom caché", None, "Humain", None, "Bonus Imp", "Mort-vivant"]
-MONSTER_STATUS = ["Fuite difficile", "Attaque en premier", "Insuplexable", "Fuite impossible",
-                  "Non scannable", "Non Sketchable", "Événement spécial", "Non contrôlable"]
-SPECIAL_EXTRA = ["Dégâts x1,5", "Dégâts x2", "Dégâts x2,5", "Dégâts x3", "Dégâts x3,5",
-                 "Dégâts x4", "Dégâts x4,5", "Dégâts x5", "Dégâts x5,5", "Dégâts x6",
-                 "Dégâts x6,5", "Dégâts x7", "Dégâts x7,5", "Dégâts x8", "Dégâts x8,5",
-                 "Dégâts x9", "Draine les PV", "Draine les MP", "Retire Reflect"]
-SPELL_FLAGS = ["Physique", "Mort instantanée", "Soigne/Raise", "Inversé vs morts-vivants",
-               "Cible au hasard", "Ignore la défense", "Dégâts non divisés", "Monstres seulement",
-               "Menu", "Passe Reflect", "Lore", "Runic", "Warp rapide", "Re-cible auto",
-               "Air Anchor", "Affecte les MP", "Restauratif", "Drain", "Retire un statut",
-               "Alterne un statut", "Défense = Stamina", "Ne rate jamais", "Dégâts selon niveau",
-               "PV fractionnaires"]
-EFFECTS = ["", "ThiefKnife", "Atma Weapon", "Mort instantanée", "Man Eater", "Drainer", "Soul Sabre",
-           "Crit. MP", "Fort vs volants", "Dice", "ValiantKnife", "Tempest", "Heal Rod", "Scimitar",
-           "Ogre Nix", "Crit. MP+", "Scan", "Golem", "Metamorph", "Palidor", "(20)", "Mantra", "Spiraler",
+RELIC3 = ["Steal x2 (Sneak Ring)", "Magic +50% (single Earring)", "Better Sketch",
+          "Better Control", "Maximum accuracy", "MP cost /2", "MP cost = 1",
+          "Vigor +50%"]
+RELIC4 = ["Fight x4 (Offering)", "Random counterattack", "Random dodge (Beads)",
+          "Gauntlet: weapon BP x7/4", "Genji Glove: 2 weapons", "Merit Award",
+          "Cover (True Knight)", None]
+RELIC5 = ["Shell at low HP", "Safe at low HP", "Reflect at low HP", "EXP x2", "Gil x2", None, None,
+          "Undead (Relic Ring)"]
+WEAPON_SPECIAL = ["", "ThiefKnife (Steal)", "Atma Weapon", "Instant death", "Man Eater",
+                  "Drainer", "Soul Sabre", "MP crit.", "Strong vs flying", "Dice", "ValiantKnife",
+                  "Tempest", "Heal Rod", "Scimitar", "Ogre Nix", "MP crit.+"]
+MONSTER_FLAGS = ["Dies at 0 MP", None, "Hidden name", None, "Human", None, "Imp bonus", "Undead"]
+MONSTER_STATUS = ["Hard to flee", "Attacks first", "Cannot be Suplexed", "Cannot flee",
+                  "Not scannable", "Not Sketchable", "Special event", "Not controllable"]
+SPECIAL_EXTRA = ["Damage x1.5", "Damage x2", "Damage x2.5", "Damage x3", "Damage x3.5",
+                 "Damage x4", "Damage x4.5", "Damage x5", "Damage x5.5", "Damage x6",
+                 "Damage x6.5", "Damage x7", "Damage x7.5", "Damage x8", "Damage x8.5",
+                 "Damage x9", "Drains HP", "Drains MP", "Removes Reflect"]
+SPELL_FLAGS = ["Physical", "Instant death", "Heals/Raise", "Inverted vs undead",
+               "Random target", "Ignores defense", "Damage not divided", "Monsters only",
+               "Menu", "Passes Reflect", "Lore", "Runic", "Quick warp", "Auto re-target",
+               "Air Anchor", "Affects MP", "Restorative", "Drain", "Removes a status",
+               "Toggles a status", "Defense = Stamina", "Never misses", "Damage by level",
+               "Fractional HP"]
+EFFECTS = ["", "ThiefKnife", "Atma Weapon", "Instant death", "Man Eater", "Drainer", "Soul Sabre",
+           "MP crit.", "Strong vs flying", "Dice", "ValiantKnife", "Tempest", "Heal Rod", "Scimitar",
+           "Ogre Nix", "MP crit.+", "Scan", "Golem", "Metamorph", "Palidor", "(20)", "Mantra", "Spiraler",
            "Tapir", "Warp", "Exploder", "Blow Fish", "White Wind", "Reflect???", "L? Pearl", "Step Mine",
-           "Dischord", "Pep Up", "Rippler", "Stone", "Sans contre", "Crusader", "Rate les volants",
+           "Dischord", "Pep Up", "Rippler", "Stone", "No counter", "Crusader", "Misses flying",
            "Wallchange", "Escape", "Mind Blast", "N. Cross", "Flare Star", "R. Polarity", "Launcher",
            "Love Token", "Seize", "Targetting", "Suplex", "Force Field", "Quadra Slam", "BabaBreath",
            "Charm", "Doom", "Empowerer", "Overcast", "Sneeze", "Engulf", "Zinger", "Evil Toot", "Retort",
-           "Revenge", "Phantasm", "Stunner", "Fallen One", "Dégâts /2", "Dégâts /4", "Quick", "Discard",
+           "Revenge", "Phantasm", "Stunner", "Fallen One", "Damage /2", "Damage /4", "Quick", "Discard",
            "Clear", "(70)", "(71)", "(72)", "Magicite", "Super Ball", "Smoke Bomb", "Elixir", "Warp Stone",
            "Dried Meat", "(79)", "Possess", "Gil Toss", "Steal", "Control", "Leap", "Sketch", "Debilitator",
            "Air Anchor"]
-GENJU_BONUS_FR = ["PV max +10 %", "PV max +30 %", "PV max +50 %", "PM max +10 %", "PM max +30 %",
-                  "PM max +50 %", "PV max +100 %", "Niveau +30 %", "Niveau +50 %", "Force +1",
-                  "Force +2", "Vitesse +1", "Vitesse +2", "Endurance +1", "Endurance +2",
-                  "Magie +1", "Magie +2"]
+GENJU_BONUS_FR = ["Max HP +10%", "Max HP +30%", "Max HP +50%", "Max MP +10%", "Max MP +30%",
+                  "Max MP +50%", "Max HP +100%", "Level +30%", "Level +50%", "Vigor +1",
+                  "Vigor +2", "Speed +1", "Speed +2", "Stamina +1", "Stamina +2",
+                  "Magic +1", "Magic +2"]
 SHOP_NAMES = """NARSHE_WEAPONS_1 NARSHE_ARMOR_1 NARSHE_RELICS_1 NARSHE_ITEMS_1 FIGARO_CASTLE_ITEMS_1 SOUTH_FIGARO_WEAPONS_1
 SOUTH_FIGARO_ARMOR_1 SOUTH_FIGARO_RELICS_1 SOUTH_FIGARO_ITEMS_1 MOBLIZ_WEAPONS MOBLIZ_ARMOR MOBLIZ_RELICS MOBLIZ_ITEMS
 NIKEAH_WEAPONS_1 NIKEAH_ARMOR_1 NIKEAH_ITEMS_1 NIKEAH_RELICS_1 KOHLINGEN_WEAPONS_1 KOHLINGEN_ARMOR_1 KOHLINGEN_ITEMS_1
@@ -139,7 +139,7 @@ def load_names(rom):
     for k in range(8):
         attack[0x55 + k] = D["swdtech"][k]
     attack[0xEE] = "(Attaque normale)"
-    attack[0xEF] = "(Attaque spéciale)"
+    attack[0xEF] = "(Special attack)"
     D["attack"] = attack
     return D
 
@@ -230,10 +230,10 @@ def target_text(t):
     if t == 0xFF:
         return "Menu"
     init = t & 0x0C
-    base = {0: "Une cible", 4: "Tous (alliés et ennemis)", 8: "Un camp", 12: "Tout un camp"}[init]
+    base = {0: "One target", 4: "All (allies and enemies)", 8: "One side", 12: "Whole side"}[init]
     extra = []
     if t & 0x40:
-        extra.append("ennemi par défaut")
+        extra.append("enemy by default")
     if t & 0x20:
         extra.append("multi-cibles")
     if t & 0x80:
@@ -279,14 +279,14 @@ def decode_items(rom, D):
                 it["element"] = bits(b[15], ELEMENTS)
                 it["special"] = WEAPON_SPECIAL[b[27] >> 4]
                 f = b[19]
-                it["wflags"] = [n for n, k in (("SwdTech", 2), ("Rangée arrière", 0x20),
-                                               ("Deux armes", 0x40), ("Runic", 0x80)) if f & k]
+                it["wflags"] = [n for n, k in (("SwdTech", 2), ("Back row OK", 0x20),
+                                               ("Two weapons", 0x40), ("Runic", 0x80)) if f & k]
             else:
                 it["mdef"] = b[21]
                 it["absorb"] = bits(b[22], ELEMENTS)
                 it["null"] = bits(b[23], ELEMENTS)
                 it["weak"] = bits(b[24], ELEMENTS)
-                it["block"] = "physique" if b[27] & 4 else ("magique" if b[27] & 8 else "")
+                it["block"] = "physical" if b[27] & 4 else ("magic" if b[27] & 8 else "")
             it["bonus"] = {"str": sgn(b[16] & 15), "spd": sgn(b[16] >> 4), "sta": sgn(b[17] & 15), "mag": sgn(b[17] >> 4)}
             ev, mb = b[26] & 15, b[26] >> 4
             it["evade"] = ev * 10 if ev < 6 else -(ev - 5) * 10
@@ -462,7 +462,7 @@ def decode_maps(rom, D):
         rate = (rom.u8(0xCF5880 + (m * 2) // 8) >> ((m * 2) % 8)) & 3
         e = {"title": titles[pr[0]] if pr[0] < 73 else ""}
         if pr[5] & 0x80:
-            e["rate"] = ["normal", "bas", "haut", "très haut"][rate]
+            e["rate"] = ["normal", "low", "high", "very high"][rate]
             e["battles"] = [expand_group_entry(v) for v in rg[sub[m]]]
         minfo[m] = e
     world = []
