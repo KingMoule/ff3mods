@@ -37,6 +37,9 @@ Le bug de Sketch est déjà corrigé dans la ROM 1.1 d'origine.
 
 - `cyan_swdtech.asm` : jauge SwdTech 2x plus rapide; toutes les SwdTech basées sur l'arme et la
   Vigor (multiple d'un Fight). Requiert `ultimate_damage.asm`.
+- `locke_steal.asm` : quand un vol réussit, l'objet rare sort 1 fois sur 4 au lieu de 1 sur 8.
+- `better_dice.asm` (Leet Sketcher) : dés de Setzer mieux répartis, bonus de dés identiques aussi
+  pour les Dice, et l'Offering réduit les dégâts des dés (remplace le correctif Chance Offering).
 
 **Fonctionnalités**, dans `patches/features/` :
 

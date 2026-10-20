@@ -24,7 +24,6 @@ patches/bugfixes/stone_cold.asm
 patches/bugfixes/killer_life_3.asm
 patches/bugfixes/zombie_tapir.asm
 patches/bugfixes/double_block.asm
-patches/bugfixes/chance_offering.asm
 patches/bugfixes/half_knife.asm
 patches/bugfixes/bye_bye_breath.asm
 patches/bugfixes/off_death_row.asm
@@ -54,8 +53,11 @@ patches/bugfixes/phoenix_chest.asm
 patches/bugfixes/off_the_hook.asm
 patches/bugfixes/loud_music.asm
 
-# --- balance (cyan_swdtech requires ultimate_damage) ---
+# --- balance (cyan_swdtech requires ultimate_damage; better_dice replaces
+#     Leet Sketcher's Chance Offering fix and is generated from leet_fixes.json) ---
 patches/balance/cyan_swdtech.asm
+patches/balance/better_dice.asm
+patches/balance/locke_steal.asm
 
 # --- features ---
 patches/features/blitz_menu.asm

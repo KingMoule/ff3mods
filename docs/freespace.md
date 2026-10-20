@@ -18,8 +18,7 @@ Update this file whenever a patch claims space.
 | C2/6772-C2/677D | 12 | `bugfixes/killer_life_3.asm` |
 | C2/677E-C2/67E0 | 99 | |
 | C2/67E1-C2/67F1 | 17 | `bugfixes/imp_call.asm` |
-| C2/67F2-C2/67F4 | 3 | |
-| C2/67F5-C2/67FF | 11 | `bugfixes/chance_offering.asm` |
+| C2/67F2-C2/67FF | 14 | |
 | C2/A65A-C2/A66F | 22 | `bugfixes/vanish_doom.asm` |
 | C2/A670-C2/A7F6 | 391 | |
 | C2/A7F7-C2/A7FF | 9 | `bugfixes/morph_mayhem.asm` |
