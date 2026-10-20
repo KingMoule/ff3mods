@@ -57,6 +57,9 @@ Les correctifs de Leet Sketcher sont générés depuis ses IPS publiés :
 3. Après `python build.py`, `python scripts/verify_ips.py scripts/leet_fixes.json` liste
    les octets où le build diffère des IPS appliqués en séquence (seulement nos propres patchs).
 
+**Guide PWA** (`guide/`) : guide de jeu hors-ligne installable sur iPhone, données extraites de la ROM moddée
+(voir `guide/README.md`).
+
 ## Crédits
 
 Les correctifs de bugs marqués (Leet Sketcher) sont des ports en asar des

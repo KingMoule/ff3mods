@@ -6,3 +6,4 @@ tools/
 *.srm
 __pycache__/
 vendor/
+!guide/tools/
