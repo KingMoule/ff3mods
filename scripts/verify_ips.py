@@ -1,6 +1,6 @@
 """Check that build/ff3mods.sfc matches the vendor IPS files applied in order.
 
-Usage: python scripts/verify_ips.py scripts/bugfixes_level1.json
+Usage: python scripts/verify_ips.py scripts/leet_fixes.json
 
 Prints every byte range where the build differs from the clean ROM with the
 IPS files applied in sequence; these should only be our own patches and the
