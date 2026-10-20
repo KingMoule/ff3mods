@@ -1,4 +1,4 @@
-// État partagé : données chargées, index, cases cochées.
+// Shared state: loaded data, indexes, checked boxes.
 import { h, store } from './util.js';
 
 export const D = {};
@@ -21,14 +21,14 @@ export async function loadData() {
 
 export const itemName = (id) => (id === null || id === undefined ? '—' : (idx.item[id] && idx.item[id].name) || '#' + id);
 export const atkName = (id) => {
-  if (id === 0xEE) return 'Attaque normale';
-  if (id === 0xEF) return 'Attaque spéciale';
+  if (id === 0xEE) return 'Normal attack';
+  if (id === 0xEF) return 'Special attack';
   const a = idx.atk[id];
   return (a && a.name) || '#' + id;
 };
 export const locName = (id) => (idx.loc[id] ? idx.loc[id].name : id);
 
-// ---- cases cochées (persistées)
+// ---- checked boxes (persisted)
 let checks = store.get('checks', {});
 export const isChecked = (id) => !!checks[id];
 export function setChecked(id, on) {
@@ -39,7 +39,7 @@ export function resetChecks() { checks = {}; store.set('checks', checks); }
 export const getChecks = () => checks;
 export function importChecks(obj) { checks = obj; store.set('checks', checks); }
 
-// ---- liens
+// ---- links
 export const monLink = (id, label) => h('a', { class: 'chip', href: '#/bestiary/' + id }, label || (idx.mon[id] ? idx.mon[id].name : '#' + id));
 export const itemLink = (id, label) => (id === null || id === undefined ? '—' : h('a', { href: '#/more/items/' + id }, label || itemName(id)));
 

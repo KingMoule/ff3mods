@@ -1,4 +1,4 @@
-// Petits utilitaires : création de DOM, stockage tolérant aux erreurs.
+// Small utilities: DOM creation, error-tolerant storage.
 
 export function h(tag, attrs, ...kids) {
   const el = document.createElement(tag);
@@ -24,7 +24,7 @@ function add(el, kids) {
   }
 }
 
-// localStorage peut être indisponible (mode privé, données bloquées) : tout est protégé.
+// localStorage may be unavailable (private mode, blocked data): everything is guarded.
 const mem = {};
 export const store = {
   get(key, fallback) {
@@ -44,6 +44,6 @@ export const store = {
   },
 };
 
-export const nf = new Intl.NumberFormat('fr-FR');
+export const nf = new Intl.NumberFormat('en-US');
 export const pct = (a, b) => (b ? Math.round((100 * a) / b) : 0);
 export const uniq = (a) => [...new Set(a)];

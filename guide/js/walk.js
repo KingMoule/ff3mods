@@ -4,7 +4,7 @@ import { D, idx, itemName, itemLink, monLink, isChecked, setChecked, locName } f
 
 const checkable = (r) => r.k !== 'note';
 const isLost = (r) => checkable(r) && !!r.lost;
-const KIND = { chest: 'Coffre', item: 'Objet', esper: 'Esper', char: 'Perso', boss: 'Boss', learn: 'Appris', shop: 'Boutique', note: 'Note' };
+const KIND = { chest: 'Chest', item: 'Item', esper: 'Esper', char: 'Party', boss: 'Boss', learn: 'Learn', shop: 'Shop', note: 'Note' };
 
 let counters = [];
 function track(el, ids) { counters.push({ el, ids }); refresh(); return el; }
@@ -13,7 +13,7 @@ function refresh() {
     const done = c.ids.filter(isChecked).length;
     if (c.kind === 'lost') {
       const left = c.ids.length - done;
-      c.el.textContent = left ? left + ' à faire' : 'tout est pris';
+      c.el.textContent = left ? left + ' to do' : 'all taken';
       if (c.wrap) c.wrap.classList.toggle('clear', !left);
       continue;
     }
@@ -32,13 +32,13 @@ function chapterRows(chap) {
 const lostRows = (chap) => chapterRows(chap).filter(isLost);
 const allRows = () => D.walkthrough.chapters.flatMap(chapterRows);
 
-export function worldLabel(w) { return w === 'B' ? 'Monde de la Balance' : w === 'R' ? 'Monde de la Ruine' : 'Suivis'; }
+export function worldLabel(w) { return w === 'B' ? 'World of Balance' : w === 'R' ? 'World of Ruin' : 'Trackers'; }
 
 function vText(v) {
   if (v.kind === 'item') return itemName(v.item);
-  if (v.kind === 'gil') return v.gil.toLocaleString('fr-FR') + ' gil';
-  if (v.kind === 'monster') return 'Monstre : ' + v.mon.map((m) => (idx.mon[m] ? idx.mon[m].name : m)).join(', ');
-  return 'Coffre vide / déclencheur';
+  if (v.kind === 'gil') return v.gil.toLocaleString('en-US') + ' gil';
+  if (v.kind === 'monster') return 'Monster: ' + v.mon.map((m) => (idx.mon[m] ? idx.mon[m].name : m)).join(', ');
+  return 'Empty chest / trigger';
 }
 const vSig = (v) => v.kind + ':' + (v.item ?? v.gil ?? (v.mon || []).join('.'));
 
@@ -49,7 +49,7 @@ export function rowText(r) {
 
 function rowEl(r) {
   const id = r.id;
-  const cb = h('input', { type: 'checkbox', 'aria-label': 'Fait' });
+  const cb = h('input', { type: 'checkbox', 'aria-label': 'Done' });
   cb.checked = isChecked(id);
   const lab = h('label', { class: 'chk' + (cb.checked ? ' done' : '') });
   cb.addEventListener('change', () => {
@@ -59,34 +59,34 @@ function rowEl(r) {
     if (document.body.dataset.todo === '1' && cb.checked) lab.style.display = 'none';
   });
   const txt = h('div', { class: 'txt' });
-  if (r.lost) { lab.classList.add('lost'); lab.dataset.rowid = id; txt.append(h('span', { class: 'tag lost' }, 'PERDU À JAMAIS'), ' '); }
+  if (r.lost) { lab.classList.add('lost'); lab.dataset.rowid = id; txt.append(h('span', { class: 'tag lost' }, 'LOST FOR GOOD'), ' '); }
   if (r.k === 'chest') {
     const same = r.v.every((v) => vSig(v) === vSig(r.v[0]));
-    txt.append(h('span', { class: 'kind' }, 'Coffre'), h('b', null, vText(r.v[0])),
-      h('span', { class: 'meta' }, '  (' + r.x + ', ' + r.y + ') carte ' + r.v[0].map));
-    if (r.v[0].kind === 'item') txt.append(' ', h('a', { href: '#/more/items/' + r.v[0].item, class: 'tag' }, 'fiche'));
+    txt.append(h('span', { class: 'kind' }, 'Chest'), h('b', null, vText(r.v[0])),
+      h('span', { class: 'meta' }, '  (' + r.x + ', ' + r.y + ') map ' + r.v[0].map));
+    if (r.v[0].kind === 'item') txt.append(' ', h('a', { href: '#/more/items/' + r.v[0].item, class: 'tag' }, 'info'));
     if (r.v[0].kind === 'monster') r.v[0].mon.forEach((m) => idx.mon[m] && txt.append(' ', monLink(m)));
     if (!same) {
-      txt.append(h('div', { class: 'var' }, 'Le contenu change selon l\'avancement (même coffre, un seul tirage) : ',
-        r.v.map((v, i) => [i ? ' / ' : '', vText(v) + ' [' + (v.loc ? locName(v.loc) + ', ' : '') + 'carte ' + v.map + ']'])));
+      txt.append(h('div', { class: 'var' }, 'The contents change with progress (same chest, one roll only): ',
+        r.v.map((v, i) => [i ? ' / ' : '', vText(v) + ' [' + (v.loc ? locName(v.loc) + ', ' : '') + 'map ' + v.map + ']'])));
       txt.append(h('span', { class: 'tag warn' }, 'variable'));
     }
   } else {
     txt.append(h('span', { class: 'kind k-' + r.k }, KIND[r.k] || r.k), r.t);
-    if (r.m && !r.lost) txt.append(h('span', { class: 'tag warn' }, 'manquable'));
-    if (r.g) txt.append(h('span', { class: 'tag', title: 'Déduit, non vérifié (ni ROM, ni guide)' }, '≈'));
-    if (r.c) txt.append(h('span', { class: 'tag ok', title: 'Confirmé par un guide externe (Caves of Narshe)' }, 'guide'));
-    if (r.rom === true) txt.append(h('span', { class: 'tag ok', title: 'Cet objet/esper est bien donné par un script de la ROM' }, 'ROM'));
+    if (r.m && !r.lost) txt.append(h('span', { class: 'tag warn' }, 'missable'));
+    if (r.g) txt.append(h('span', { class: 'tag', title: 'Inferred, unverified (neither ROM nor guide)' }, '≈'));
+    if (r.c) txt.append(h('span', { class: 'tag ok', title: 'Confirmed by an external guide (Caves of Narshe)' }, 'guide'));
+    if (r.rom === true) txt.append(h('span', { class: 'tag ok', title: 'This item/Esper is indeed given by a ROM script' }, 'ROM'));
     if (r.item && idx.item) {
       const it = D.items.find((x) => x.name.toLowerCase() === r.item.toLowerCase());
-      if (it) txt.append(' ', h('a', { class: 'tag', href: '#/more/items/' + it.id }, 'fiche'));
+      if (it) txt.append(' ', h('a', { class: 'tag', href: '#/more/items/' + it.id }, 'info'));
     }
     if (r.mon) { txt.append(h('div', null, r.mon.map((m) => idx.mon[m] ? [monLink(m), ' '] : null))); }
   }
-  if (r.m && r.k === 'chest' && !r.lost) txt.append(h('span', { class: 'tag warn' }, 'manquable'));
+  if (r.m && r.k === 'chest' && !r.lost) txt.append(h('span', { class: 'tag warn' }, 'missable'));
   if (r.hint) txt.append(h('div', { class: 'meta' }, '→ ' + r.hint));
   if (r.lost) txt.append(h('div', { class: 'lostwhy' }, '⚠ ' + r.lost));
-  if (r.last) txt.append(h('span', { class: 'tag warn' }, 'dernière chance'));
+  if (r.last) txt.append(h('span', { class: 'tag warn' }, 'last chance'));
   lab.append(cb, txt);
   if (store.get('fMiss', false) && !r.m) lab.style.display = 'none';
   if (store.get('fLost', false) && !r.lost) lab.style.display = 'none';
@@ -100,12 +100,12 @@ function filterBar(rerender) {
     b.addEventListener('click', () => { store.set(key, !store.get(key, false)); rerender(); });
     return b;
   };
-  return h('div', { class: 'chips hs' }, mk('fTodo', 'Non cochés'), mk('fMiss', 'Manquables seulement'), mk('fLost', 'Perdu à jamais'));
+  return h('div', { class: 'chips hs' }, mk('fTodo', 'Unchecked'), mk('fMiss', 'Missable only'), mk('fLost', 'Lost for good'));
 }
 
 const chapNum = (c) => {
   if (c.id === 't_esper') return 'Espers';
-  if (c.id === 't_char') return 'Chars';
+  if (c.id === 't_char') return 'Party';
   if (c.id === 't_lore') return 'Lores';
   return (c.world === 'R' ? 'R' : '') + c.id.replace(/^\D+/, '');
 };
@@ -130,18 +130,18 @@ export function walkHome(rerender) {
   const rows = allRows();
   const head = h('div', { class: 'card' });
   const t = h('b'); const bar = h('i');
-  head.append(h('div', { class: 'hrow' }, h('span', null, 'Progression globale'), t), h('div', { class: 'bar' }, bar));
+  head.append(h('div', { class: 'hrow' }, h('span', null, 'Overall progress'), t), h('div', { class: 'bar' }, bar));
   trackBar(t, bar, rows.map((r) => r.id));
   const allLost = rows.filter(isLost);
   const lw = h('div', { class: 'lostbox' });
   const lc = h('b');
-  lw.append(h('div', null, h('span', { class: 'tag lost' }, 'PERDU À JAMAIS'), ' Objets et événements à prendre au bon moment : ', lc),
-    h('div', { class: 'sm' }, "Chaque chapitre indique en rouge ce qu'on ne peut plus récupérer ensuite. Le filtre « Perdu à jamais » n'affiche que cela."));
+  lw.append(h('div', null, h('span', { class: 'tag lost' }, 'LOST FOR GOOD'), ' Items and events to take at the right time: ', lc),
+    h('div', { class: 'sm' }, 'Each chapter flags in red what can no longer be obtained afterwards. The "Lost for good" filter shows only those.'));
   counters.push({ kind: 'lost', el: lc, wrap: lw, ids: allLost.map((r) => r.id) });
   const last = store.get('lastChap', null);
   if (last && idx.chap[last]) root.append(h('a', { class: 'cont', href: '#/walk/' + last }, 'Continue: ' + idx.chap[last].title));
   root.append(head, lw, filterBar(rerender));
-  const search = h('input', { type: 'search', placeholder: 'Chercher un objet, un lieu, un boss…', 'aria-label': 'Recherche' });
+  const search = h('input', { type: 'search', placeholder: 'Search an item, a place, a boss…', 'aria-label': 'Search' });
   const res = h('div');
   search.addEventListener('input', () => {
     res.innerHTML = '';
@@ -160,7 +160,7 @@ export function walkHome(rerender) {
         }
       }
     }
-    res.append(n ? card : h('p', { class: 'muted' }, 'Aucun résultat.'));
+    res.append(n ? card : h('p', { class: 'muted' }, 'No results.'));
   });
   root.append(search, res);
   for (const w of ['B', 'R', 'T']) {
@@ -180,8 +180,8 @@ export function walkHome(rerender) {
     });
     root.append(g);
   }
-  root.append(h('p', { class: 'muted' }, '« ≈ » = déduit, non vérifié. « guide » = recoupé avec un walkthrough externe. « ROM » = l\'objet/esper figure bien dans un script d\'événement. '
-    + 'Les coffres (position, contenu) viennent directement de la ROM.'));
+  root.append(h('p', { class: 'muted' }, '"≈" = inferred, unverified. "guide" = cross-checked with an external walkthrough. "ROM" = the item/Esper does appear in an event script. '
+    + 'Chests (position, contents) are read directly from the ROM.'));
   return root;
 }
 
@@ -189,7 +189,7 @@ export function walkChapter(id, rerender) {
   counters = [];
   document.body.dataset.todo = store.get('fTodo', false) ? '1' : '0';
   const chap = idx.chap[id];
-  if (!chap) return h('p', null, 'Chapitre introuvable.');
+  if (!chap) return h('p', null, 'Chapter not found.');
   store.set('lastChap', id);
   const root = h('div');
   root.append(chapStrip(id));
@@ -202,8 +202,8 @@ export function walkChapter(id, rerender) {
   if (lr.length) {
     const box = h('div', { class: 'lostbox' });
     const left = h('b');
-    box.append(h('div', null, h('span', { class: 'tag lost' }, 'PERDU À JAMAIS'), ' À récupérer dans ce chapitre : ', left),
-      h('div', { class: 'sm' }, 'Après ce chapitre, ces éléments ne sont plus accessibles. Touchez une ligne pour y aller.'));
+    box.append(h('div', null, h('span', { class: 'tag lost' }, 'LOST FOR GOOD'), ' To collect in this chapter: ', left),
+      h('div', { class: 'sm' }, 'After this chapter these can no longer be obtained. Tap a line to jump to it.'));
     const ul = h('ul', { class: 'lostlist' });
     lr.forEach((r) => {
       const loc = chap.locs.find((l) => l.items.includes(r));
@@ -226,17 +226,17 @@ export function walkChapter(id, rerender) {
     hd.addEventListener('click', () => sec.classList.toggle('collapsed'));
     sec.append(hd);
     [...new Set(l.items.filter((r) => r.k === 'chest' && (r.lost || r.last)).map((r) => r.lost || r.last))]
-      .forEach((t2) => sec.append(h('div', { class: 'lostbanner' }, '⚠ Dernière chance : ' + t2)));
+      .forEach((t2) => sec.append(h('div', { class: 'lostbanner' }, '⚠ Last chance: ' + t2)));
     trackBar(cnt, h('i'), l.items.filter(checkable).map((r) => r.id));
     const rows = l.items;
-    if (!rows.length && !l.boss_chips.length) sec.append(h('p', { class: 'muted' }, 'Rien de spécial à récupérer ici.'));
+    if (!rows.length && !l.boss_chips.length) sec.append(h('p', { class: 'muted' }, 'Nothing special to collect here.'));
     rows.forEach((r) => {
       if (r.k === 'note') sec.append(h('div', { class: 'note' }, r.t, r.g ? h('span', { class: 'tag' }, '≈') : null));
       else sec.append(rowEl(r));
     });
     if (l.boss_chips.length) sec.append(h('div', null, h('span', { class: 'kind k-boss' }, 'Boss'), l.boss_chips.map((m) => [monLink(m), ' '])));
     if (l.mon.length) {
-      sec.append(h('details', null, h('summary', null, 'Monstres rencontrés (' + l.mon.length + ')'), h('div', { class: 'chips' }, l.mon.map((m) => monLink(m)))));
+      sec.append(h('details', null, h('summary', null, 'Monsters encountered (' + l.mon.length + ')'), h('div', { class: 'chips' }, l.mon.map((m) => monLink(m)))));
     }
     root.append(sec);
   });

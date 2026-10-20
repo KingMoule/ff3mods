@@ -1,8 +1,8 @@
 {
   "name": "Guide Final Fantasy VI (mod ff3mods)",
   "short_name": "Guide FF6",
-  "description": "Guide hors-ligne de FF3 US v1.1 avec les modifications du mod.",
-  "lang": "fr",
+  "description": "Offline guide for FF3 US v1.1 with the mod changes.",
+  "lang": "en",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

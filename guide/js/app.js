@@ -1,4 +1,4 @@
-// Point d'entrée : routeur par hash, service worker.
+// Entry point: hash router, service worker.
 import { h } from './util.js';
 import { D, loadData, idx } from './state.js';
 import { walkHome, walkChapter } from './walk.js';
@@ -23,14 +23,14 @@ function route() {
     if (tab === 'walk') {
       if (parts[1]) {
         const c = idx.chap[parts[1]];
-        res = { title: c ? c.title : 'Chapitre', back: '#/walk', node: walkChapter(parts[1], route) };
-      } else res = { title: 'Marche & checklist', node: walkHome(route) };
+        res = { title: c ? c.title : 'Chapter', back: '#/walk', node: walkChapter(parts[1], route) };
+      } else res = { title: 'Walkthrough & checklist', node: walkHome(route) };
     } else if (tab === 'bestiary') {
-      res = parts[1] ? monsterDetail(+parts[1]) : { title: 'Bestiaire', node: bestiaryList() };
+      res = parts[1] ? monsterDetail(+parts[1]) : { title: 'Bestiary', node: bestiaryList() };
     } else if (tab === 'chars') {
-      res = parts[1] ? charDetail(parts[1]) : { title: 'Personnages', node: charList() };
+      res = parts[1] ? charDetail(parts[1]) : { title: 'Characters', node: charList() };
     } else if (tab === 'formulas') {
-      res = { title: 'Formules (version mod)', back: '#/more', node: formulasView() };
+      res = { title: 'Formulas (mod version)', back: '#/more', node: formulasView() };
     } else if (tab === 'more') {
       res = moreView(parts.slice(1));
     } else {
@@ -39,7 +39,7 @@ function route() {
     }
   } catch (err) {
     console.error(err);
-    res = { title: 'Erreur', node: h('p', null, 'Erreur d\'affichage : ' + err.message) };
+    res = { title: 'Error', node: h('p', null, 'Display error: ' + err.message) };
   }
   scrollPos[current] = window.scrollY;
   current = hash;
@@ -59,7 +59,7 @@ async function main() {
   try {
     await loadData();
   } catch (e) {
-    view.replaceChildren(h('p', { class: 'loading' }, 'Impossible de charger les données : ' + e.message));
+    view.replaceChildren(h('p', { class: 'loading' }, 'Could not load the data: ' + e.message));
     return;
   }
   window.addEventListener('hashchange', route);

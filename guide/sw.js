@@ -1,5 +1,5 @@
 /* Service worker du guide — généré par tools/build_data.py (ne pas éditer sw.js à la main). */
-const VERSION = "a868808694";
+const VERSION = "c93ef23d09";
 const CACHE = "ff6guide-" + VERSION;
 const ASSETS = [
  "./",
