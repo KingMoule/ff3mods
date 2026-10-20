@@ -77,12 +77,15 @@ def main():
         groups.setdefault(ch["bit"], []).append(ch)
     chapter_order = {}
     first_for_group = {}
+    def entry_maps(le):
+        return le["maps"] if "maps" in le else W.LOC[le["loc"]][1]
+
     for ci, chap in enumerate(W.CHAPTERS):
         for li, le in enumerate(chap["locs"]):
             if le.get("nochest"):
                 continue
-            for mp in W.LOC[le["loc"]][1]:
-                chapter_order.setdefault(mp, (ci, li))
+            for pi, mp in enumerate(entry_maps(le)):
+                chapter_order.setdefault(mp, (ci, li, pi))
     unassigned = []
     group_home = {}
     for bit, lst in groups.items():
@@ -90,13 +93,23 @@ def main():
         if not homes:
             unassigned.append(bit)
             continue
-        group_home[bit] = min(homes)[0]
+        group_home[bit] = min(homes)[0][:2]
     if unassigned:
         miss = sorted({(c["map"], c["kind"]) for b in unassigned for c in groups[b]})
         print("ATTENTION coffres sans lieu :", miss)
 
     item_names = {i["id"]: i["name"] for i in items}
     mon_names = {m["id"]: m["name"] for m in mons}
+
+    item_type = {i["id"]: i["type"] for i in items}
+    KEEP = {237, 238, 239, 249}   # X-Ether, Elixir, Megalixir, Magicite
+
+    def important(v):
+        if v["kind"] == "item":
+            return item_type.get(v["item"]) in ("weapon", "armor", "helmet", "shield", "relic", "tool") or v["item"] in KEEP
+        if v["kind"] == "gil":
+            return v["gil"] >= 5000
+        return False
 
     def chest_variant(c):
         v = {"map": c["map"], "x": c["x"], "y": c["y"], "kind": c["kind"]}
@@ -143,7 +156,8 @@ def main():
         c_out = {"id": chap["id"], "world": chap["world"], "title": chap["title"], "intro": chap["intro"], "locs": []}
         for li, le in enumerate(chap["locs"]):
             lid = le["loc"]
-            lname, mlist = W.LOC[lid]
+            lname = W.LOC[lid][0]
+            mlist = entry_maps(le)
             entry = {"loc": lid, "name": le.get("title") or lname, "items": [], "mon": [], "boss": []}
             # coffres
             chests = []
@@ -153,7 +167,7 @@ def main():
             rows = []
             for bit in chests:
                 lst = groups[bit]
-                lst_sorted = sorted(lst, key=lambda c: chapter_order.get(c["map"], (99, 0)))
+                lst_sorted = sorted(lst, key=lambda c: chapter_order.get(c["map"], (99, 0, 0)))
                 primary = lst_sorted[0]
                 vs = [chest_variant(c) for c in lst_sorted]
                 contents = {json.dumps({k: v for k, v in x.items() if k not in ("map", "loc")}, sort_keys=True) for x in vs}
@@ -161,6 +175,19 @@ def main():
                 row = {"id": f"c{bit}", "k": "chest", "x": primary["x"], "y": primary["y"], "v": vs}
                 if variable:
                     row["m"] = True
+                    row["var"] = True
+                for v in vs:
+                    h = getattr(W, "CHEST_HINT", {}).get((v["map"], v["x"], v["y"]))
+                    if h:
+                        row["hint"] = h
+                        break
+                if le.get("lost"):
+                    row["m"] = True
+                    # rouge « perdu à jamais » seulement pour ce qui compte ; le reste = « dernière chance »
+                    if any(important(v) for v in vs):
+                        row["lost"] = le["lost"]
+                    else:
+                        row["last"] = le["lost"]
                 rows.append(row)
             rows.sort(key=lambda r: (r["v"][0].get("map", 0), r["y"], r["x"]))
             for r in rows:
@@ -172,7 +199,7 @@ def main():
             for ei, ev in enumerate(le.get("events", [])):
                 eid = hashlib.sha1((chap["id"] + "|" + ev["t"]).encode("utf-8")).hexdigest()[:8]
                 row = {"id": "e" + eid, "k": ev["k"], "t": ev["t"]}
-                for f in ("m", "g", "item", "esper"):
+                for f in ("m", "g", "c", "lost", "item", "esper"):
                     if ev.get(f):
                         row[f] = ev[f]
                 if ev.get("mon"):

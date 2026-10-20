@@ -125,3 +125,19 @@ details > div { padding: 0 12px 12px; }
 .sticky { position: sticky; top: calc(var(--safe-t) + var(--top-h)); background: var(--bg); padding: 8px 0; z-index: 5; }
 .hl { background: rgba(255, 200, 0, .25); }
 footer.foot { color: var(--muted); font-size: 12px; margin-top: 28px; text-align: center; }
+
+/* ---- perdu à jamais ---- */
+.tag.lost { background: var(--bad); color: #fff; font-weight: 700; letter-spacing: .02em; }
+.chk.lost { border-left: 4px solid var(--bad); padding-left: 8px; background: color-mix(in srgb, var(--bad) 8%, transparent); }
+.lostwhy { font-size: 12.5px; color: var(--bad); margin-top: 2px; font-weight: 600; }
+.lostbox { border: 2px solid var(--bad); border-radius: 12px; padding: 10px 12px; margin: 10px 0; background: color-mix(in srgb, var(--bad) 7%, var(--card)); }
+.lostbox.clear { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 7%, var(--card)); }
+.lostbox.clear .tag.lost { background: var(--ok); }
+.lostlist { list-style: none; margin: 6px 0 0; padding: 0; }
+.lostitem { display: block; width: 100%; text-align: left; font: inherit; color: inherit; background: none; border: 0; border-top: 1px solid var(--line); padding: 9px 2px; min-height: 40px; cursor: pointer; }
+.lostitem.done { opacity: .45; text-decoration: line-through; }
+.lostbanner { border-left: 4px solid var(--bad); background: color-mix(in srgb, var(--bad) 9%, transparent); color: var(--bad); font-weight: 600; font-size: 13.5px; padding: 6px 10px; margin: 6px 0; border-radius: 0 8px 8px 0; }
+.lostwrap { color: var(--bad); font-weight: 700; }
+.lostwrap.clear { color: var(--ok); }
+.flash { animation: flash 1.5s ease-out; }
+@keyframes flash { 0% { background: color-mix(in srgb, var(--warn) 45%, transparent); } 100% { background: transparent; } }

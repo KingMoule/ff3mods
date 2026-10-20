@@ -27,9 +27,16 @@ en anglais comme dans le jeu US.
 | Coffres (position, contenu), rencontres aléatoires par carte et par secteur du monde | lues dans la ROM |
 | Attaques d'un monstre | décodées des scripts d'IA de la ROM (commande « attaque ») |
 | Qui lance quel Lore | idem (scripts d'IA) |
-| Noms des lieux, regroupement des cartes en lieux, ordre des chapitres, événements (personnages, Espers, boss, objets cachés, manquables), conseils d'équipement | **écrits à la main**, déduits des dialogues/contenus de la ROM et de connaissances du jeu : **non vérifiés** (marqués « ≈ » dans l'application) |
+| Ordre des chapitres, cartes accessibles à chaque étape, événements, récompenses, « perdu à jamais » | écrits à la main, **recoupés avec le walkthrough Caves of Narshe** (balise « guide ») ; ce qui n'est confirmé par aucune source reste marqué « ≈ » |
+| Noms des lieux, regroupement des cartes en lieux, événements (personnages, Espers, boss, objets cachés, manquables), conseils d'équipement | **écrits à la main**, déduits des dialogues/contenus de la ROM et de connaissances du jeu : **non vérifiés** (marqués « ≈ » dans l'application) |
 | « ROM » (étiquette verte) | l'objet/l'Esper figure bien dans un script d'événement de la ROM (recoupement grossier par recherche d'octets) |
 | Lieux des Espers | indices : carte dont un déclencheur démarre juste avant l'octet « donner un Esper » (peut être faux) |
+
+Chaque coffre de la ROM est rattaché au **premier chapitre dont l'entrée liste sa carte** (`maps=[...]` dans
+`walkthrough_src.py` ; sans `maps`, toutes les cartes du lieu). Les coffres au contenu variable (même bit d'événement
+sur plusieurs cartes) sont fusionnés. **Perdu à jamais** : `lost="raison"` sur une entrée de chapitre (tous ses coffres)
+ou sur un événement ; en rouge seulement pour l'équipement, les reliques et les objets rares, les autres coffres de
+la même entrée affichent « dernière chance » (ambre).
 
 Limites connues : l'analyse complète des scripts d'événement n'est pas faite (les récompenses d'événements
 sont donc écrites à la main) ; les noms de zones des cartes sans titre sont des déductions ; plusieurs coffres
