@@ -22,6 +22,13 @@ désactive le patch.
 
 | Patch | Effet |
 |---|---|
-| `patches/balance/cyan_swdtech.asm` | Jauge SwdTech 2x plus rapide; toutes les SwdTech basées sur l'arme et la Vigor (multiple d'un Fight) |
+| `patches/bugfixes/ultimate_damage.asm` | Plus de débordement des dégâts au-delà de 65 535; Genji Glove et Offering ne réduisent que Fight/Capture (Leet Sketcher) |
+| `patches/balance/cyan_swdtech.asm` | Jauge SwdTech 2x plus rapide; toutes les SwdTech basées sur l'arme et la Vigor (multiple d'un Fight). Requiert `ultimate_damage` |
 
 L'espace libre utilisé dans la ROM est tenu à jour dans `docs/freespace.md`.
+
+## Crédits
+
+Les correctifs de bugs marqués (Leet Sketcher) sont des ports en asar des
+patchs de Leet Sketcher (<https://l33t5k37ch3r.altervista.org/>), vérifiés
+octet par octet contre ses IPS publiés.

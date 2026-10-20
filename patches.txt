@@ -1,4 +1,7 @@
 # Patches applied by build.py, in order. Comment a line out to disable a patch.
 
-# --- balance ---
+# --- bug fixes ---
+patches/bugfixes/ultimate_damage.asm
+
+# --- balance (cyan_swdtech requires ultimate_damage) ---
 patches/balance/cyan_swdtech.asm

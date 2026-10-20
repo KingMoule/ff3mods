@@ -16,7 +16,7 @@
 ;   Cleave        1.5x all enemies + Death (182/256); death-immune targets
 ;                 still take the damage
 ;
-; Free space used: C2/6469-C2/64C9
+; Free space used: C2/6469-C2/64CF
 
 asar 1.90
 hirom
@@ -70,15 +70,15 @@ org $C17D84
 %spell_byte($5C, 9, $23, $3F)   ;   Stunner effect: Death lands at hit rate/256
 
 ; ------------------------------------------------------------------------------
-; Damage hook: replaces the start of CalcDmg (C2/2B9D: lda $11a2 / lsr / jcc).
+; Damage hook. Requires bugfixes/ultimate_damage.asm (applied first): hooks
+; its single call to the damage routine in ExecAttack (C2/322B).
 
-assert read4($C22B9D) == $4A11A2AD, "unexpected CalcDmg code"
-org $C22B9D
-        jmp SwdTechCalcDmg
+assert read3($C2322B) == $2B6920, "apply bugfixes/ultimate_damage.asm first"
+org $C2322B
+        jsr SwdTechDamage
 
-!CalcMagicDmg = $2B69
-!CalcPhysDmg  = $2BA6           ; vanilla physical damage, ends with plp/rts
-!LsrA         = $0DD1           ; A16 = ($E8..$EA) >> (A+1)
+!DamageAlg    = $2B69           ; base damage + Atlas Armlet/Earrings, capped at 65535
+!LsrA         = $0DD1           ; A16 = ($E8..$EB) >> (A+1)
 !Mult24       = $47B7           ; $E8..$EA = A16 * $E8
 
 !AttackPower  = $11A6
@@ -87,14 +87,12 @@ org $C22B9D
 !RHandPower   = $3B68
 !LHandPower   = $3B69
 
-assert read1($C26469) == $FF && read1($C264C9) == $FF, "free space in use"
+assert read1($C26469) == $FF && read1($C264CF) == $FF, "free space in use"
 org $C26469
-SwdTechCalcDmg:
+SwdTechDamage:
         lda $11A2
         lsr
-        bcs .physical
-        jmp !CalcMagicDmg
-.physical:
+        bcc .vanilla            ; magical
         cpx #$08
         bcs .monster
         lda !NameType
@@ -109,16 +107,20 @@ SwdTechCalcDmg:
         bcs +
         lda !LHandPower,x
 +       sta !AttackPower
-        jsr !CalcPhysDmg
+        jsr !DamageAlg
         pla
         sta !AttackPower        ; restore for multi-hit (Quadra) and Empowerer
         sta $E8
+        stz $EB
         rep #$20
         lda !BaseDmg
         jsr !Mult24
         lda #$0002
         jsr !LsrA
-        sta !BaseDmg
+        ldy $EA                 ; bits above 16 after the shift
+        beq +
+        lda #$FFFF              ; cap at 65535 like the rest of the formula
++       sta !BaseDmg
         sep #$20
         rts
 
@@ -136,9 +138,9 @@ SwdTechCalcDmg:
         plx
         sta !AttackPower
 .vanilla:
-        jmp !CalcPhysDmg
+        jmp !DamageAlg
 
 VanillaPower:
         db 120, 56, 8, 72, 49, 97, 70, 0
 
-assert pc() <= $C264CA, "SwdTech hook overflows its free space"
+assert pc() <= $C264D0, "SwdTech hook overflows its free space"
