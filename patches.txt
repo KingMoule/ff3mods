@@ -1,0 +1,4 @@
+# Patches applied by build.py, in order. Comment a line out to disable a patch.
+
+# --- balance ---
+patches/balance/cyan_swdtech.asm

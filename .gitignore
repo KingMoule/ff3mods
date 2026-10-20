@@ -1,0 +1,7 @@
+rom/
+build/
+tools/
+*.sfc
+*.smc
+*.srm
+__pycache__/
