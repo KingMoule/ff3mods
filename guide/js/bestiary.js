@@ -28,21 +28,25 @@ export function bestiaryList() {
   const input = h('input', { type: 'search', placeholder: 'Nom, objet volé/lâché, attaque…', value: st.q, 'aria-label': 'Recherche' });
   const out = h('ul', { class: 'list card' });
   const count = h('p', { class: 'muted' });
-  const chips = h('div', { class: 'chips' });
+  const chips = h('div');
   function chip(label, on, fn, cls) {
     const b = h('button', { class: 'chip' + (on ? ' on' : '') + (cls ? ' ' + cls : ''), type: 'button' }, label);
     b.addEventListener('click', () => { fn(); drawChips(); draw(); });
     return b;
   }
   function drawChips() {
+    // two horizontally scrolling rows: filters, then weaknesses
+    const sl = [...chips.children].map((r) => r.scrollLeft);
     chips.innerHTML = '';
-    chips.append(chip('Boss', st.boss, () => { st.boss = !st.boss; }));
-    chips.append(chip('Balance', st.world === 'B', () => { st.world = st.world === 'B' ? null : 'B'; }));
-    chips.append(chip('Ruine', st.world === 'R', () => { st.world = st.world === 'R' ? null : 'R'; }));
-    chips.append(chip(st.sort === 'id' ? 'Tri : ordre du jeu' : 'Tri : niveau', false, () => { st.sort = st.sort === 'id' ? 'lvl' : 'id'; }));
-    h('span');
-    chips.append(h('span', { class: 'muted' }, 'Faible à :'));
-    ELEMS.forEach((e) => chips.append(chip(e, st.weak === e, () => { st.weak = st.weak === e ? null : e; }, 'el-' + e)));
+    const r1 = h('div', { class: 'chips hs' }); const r2 = h('div', { class: 'chips hs' });
+    chips.append(r1, r2);
+    r1.append(chip('Boss', st.boss, () => { st.boss = !st.boss; }));
+    r1.append(chip('Balance', st.world === 'B', () => { st.world = st.world === 'B' ? null : 'B'; }));
+    r1.append(chip('Ruine', st.world === 'R', () => { st.world = st.world === 'R' ? null : 'R'; }));
+    r1.append(chip(st.sort === 'id' ? 'Tri : ordre du jeu' : 'Tri : niveau', false, () => { st.sort = st.sort === 'id' ? 'lvl' : 'id'; }));
+    r2.append(h('span', { class: 'muted' }, 'Faible à :'));
+    ELEMS.forEach((e) => r2.append(chip(e, st.weak === e, () => { st.weak = st.weak === e ? null : e; }, 'el-' + e)));
+    [r1, r2].forEach((r, i) => { r.scrollLeft = sl[i] || 0; });
   }
   function draw() {
     const q = st.q.trim().toLowerCase();
@@ -66,7 +70,7 @@ export function bestiaryList() {
   }
   input.addEventListener('input', () => { st.q = input.value; draw(); });
   drawChips();
-  root.append(input, chips, count, out);
+  root.append(h('div', { class: 'sticky' }, input, chips), count, out);
   draw();
   return root;
 }

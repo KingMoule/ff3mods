@@ -30,7 +30,7 @@ function route() {
     } else if (tab === 'chars') {
       res = parts[1] ? charDetail(parts[1]) : { title: 'Personnages', node: charList() };
     } else if (tab === 'formulas') {
-      res = { title: 'Formules (version mod)', node: formulasView() };
+      res = { title: 'Formules (version mod)', back: '#/more', node: formulasView() };
     } else if (tab === 'more') {
       res = moreView(parts.slice(1));
     } else {
@@ -49,7 +49,8 @@ function route() {
   backEl.onclick = () => { if (res.back) location.hash = res.back; };
   document.title = res.title + ' — Guide FF6';
   view.replaceChildren(res.node);
-  document.querySelectorAll('#tabs a').forEach((a) => a.classList.toggle('on', a.dataset.tab === tab));
+  const key = tab === 'formulas' ? 'more' : tab === 'more' && (parts[1] === 'items' || parts[1] === 'espers') ? parts[1] : tab;
+  document.querySelectorAll('#tabs a').forEach((a) => a.classList.toggle('on', a.dataset.tab === key));
   window.scrollTo(0, scrollPos[hash] || 0);
 }
 

@@ -19,6 +19,17 @@ en anglais comme dans le jeu US.
   Colisée, Lores, carte des rencontres du monde (8×8 secteurs), tables PV/PM/EXP, liste des différences
   du mod, quêtes, réglages (thème, export/import/effacement de la progression).
 
+## Navigation
+
+- Bottom tabs: **Walkthrough**, **Bestiary**, **Characters**, **Items** (`#/more/items`) and **Espers**
+  (`#/more/espers`), plus **More**: a two-column grid of the remaining sections (Formulas at `#/formulas`, shops,
+  Colosseum, Lores, techniques, encounter map, tables, mod changes, quests, quest items, settings).
+- Walkthrough home: a "Continue" button to the last opened chapter (`ff6g.lastChap`), then the chapters as a
+  two-column grid with progress and lost-forever counts.
+- Chapter page: a sticky strip of chapter numbers (1–21, R1–R11, Espers/Chars/Lores; ✓ = fully checked) to jump
+  in one tap, previous/All/next links at the bottom, and location headers that collapse when tapped.
+- Bestiary and items: the search box and filter chips stay sticky; chips scroll horizontally.
+
 ## Fiabilité des données
 
 | Donnée | Source |
