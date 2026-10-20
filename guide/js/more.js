@@ -19,8 +19,9 @@ const MENU = [
 ];
 
 export function moreMenu() {
-  return h('ul', { class: 'list card' }, MENU.map(([k, t, s]) => h('li', null,
-    h('a', { class: 'row chev', href: '#/more/' + k }, h('div', { class: 'grow' }, h('div', null, t), h('div', { class: 'sm' }, s))))));
+  // items/espers have their own bottom tabs; formulas lives here
+  return h('div', { class: 'tiles' }, [['formulas', 'Formulas (mod)', 'Damage & hit formulas']].concat(MENU.filter(([k]) => k !== 'items' && k !== 'espers'))
+    .map(([k, t, s]) => h('a', { href: k === 'formulas' ? '#/formulas' : '#/more/' + k }, h('b', null, t), h('span', null, s))));
 }
 
 const table = (head, rows) => h('div', { class: 'scroll' }, h('table', null, h('thead', null, h('tr', null, head.map((x) => h('th', null, x)))), h('tbody', null, rows)));
@@ -43,15 +44,17 @@ let itemState = { q: '', t: null };
 function items() {
   const root = h('div');
   const input = h('input', { type: 'search', placeholder: 'Nom d\'objet…', value: itemState.q, 'aria-label': 'Recherche' });
-  const chips = h('div', { class: 'chips' });
+  const chips = h('div', { class: 'chips hs' });
   const ul = h('ul', { class: 'list card' });
   function draw() {
+    const sl = chips.scrollLeft;
     chips.innerHTML = '';
     Object.entries(TYPES).forEach(([k, l]) => {
       const b = h('button', { class: 'chip' + (itemState.t === k ? ' on' : ''), type: 'button' }, l);
       b.addEventListener('click', () => { itemState.t = itemState.t === k ? null : k; draw(); });
       chips.append(b);
     });
+    chips.scrollLeft = sl;
     ul.innerHTML = '';
     const q = itemState.q.toLowerCase();
     D.items.filter((i) => i.name && (!itemState.t || i.type === itemState.t) && (!q || i.name.toLowerCase().includes(q))).forEach((i) => {
@@ -60,7 +63,7 @@ function items() {
     });
   }
   input.addEventListener('input', () => { itemState.q = input.value; draw(); });
-  root.append(input, chips, ul);
+  root.append(h('div', { class: 'sticky' }, input, chips), ul);
   draw();
   return root;
 }
@@ -249,5 +252,6 @@ export function moreView(parts) {
   const fn = { espers, items, shops, colosseum, lores, techs, tables, mods, quests, rare, settings }[sub];
   if (sub === 'world') return { title: TITLES.world, back: '#/more', node: worldView(a, b) };
   if (!fn) return { title: 'Plus', node: moreMenu() };
-  return { title: TITLES[sub], back: '#/more', node: fn() };
+  // items and espers are bottom tabs: no back button
+  return { title: TITLES[sub], back: sub === 'items' || sub === 'espers' ? null : '#/more', node: fn() };
 }

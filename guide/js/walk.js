@@ -100,7 +100,28 @@ function filterBar(rerender) {
     b.addEventListener('click', () => { store.set(key, !store.get(key, false)); rerender(); });
     return b;
   };
-  return h('div', { class: 'chips' }, mk('fTodo', 'Non cochés'), mk('fMiss', 'Manquables seulement'), mk('fLost', 'Perdu à jamais'));
+  return h('div', { class: 'chips hs' }, mk('fTodo', 'Non cochés'), mk('fMiss', 'Manquables seulement'), mk('fLost', 'Perdu à jamais'));
+}
+
+const chapNum = (c) => {
+  if (c.id === 't_esper') return 'Espers';
+  if (c.id === 't_char') return 'Chars';
+  if (c.id === 't_lore') return 'Lores';
+  return (c.world === 'R' ? 'R' : '') + c.id.replace(/^\D+/, '');
+};
+
+function chapStrip(cur) {
+  const strip = h('div', { class: 'chapstrip', role: 'navigation', 'aria-label': 'Chapters' });
+  let prevW = null;
+  D.walkthrough.chapters.forEach((c) => {
+    const ids = chapterRows(c).map((r) => r.id);
+    const fin = ids.length && ids.every(isChecked);
+    const a = h('a', { href: '#/walk/' + c.id, title: c.title, class: (c.id === cur ? 'on ' : '') + (fin ? 'fin ' : '') + (prevW && prevW !== c.world ? 'sep' : '') }, chapNum(c));
+    prevW = c.world;
+    strip.append(a);
+  });
+  requestAnimationFrame(() => { const on = strip.querySelector('.on'); if (on) strip.scrollLeft = on.offsetLeft - strip.clientWidth / 2 + on.offsetWidth / 2; });
+  return h('div', { class: 'sticky' }, strip);
 }
 
 export function walkHome(rerender) {
@@ -109,7 +130,7 @@ export function walkHome(rerender) {
   const rows = allRows();
   const head = h('div', { class: 'card' });
   const t = h('b'); const bar = h('i');
-  head.append(h('div', null, 'Progression globale : ', t), h('div', { class: 'bar' }, bar));
+  head.append(h('div', { class: 'hrow' }, h('span', null, 'Progression globale'), t), h('div', { class: 'bar' }, bar));
   trackBar(t, bar, rows.map((r) => r.id));
   const allLost = rows.filter(isLost);
   const lw = h('div', { class: 'lostbox' });
@@ -117,6 +138,8 @@ export function walkHome(rerender) {
   lw.append(h('div', null, h('span', { class: 'tag lost' }, 'PERDU À JAMAIS'), ' Objets et événements à prendre au bon moment : ', lc),
     h('div', { class: 'sm' }, "Chaque chapitre indique en rouge ce qu'on ne peut plus récupérer ensuite. Le filtre « Perdu à jamais » n'affiche que cela."));
   counters.push({ kind: 'lost', el: lc, wrap: lw, ids: allLost.map((r) => r.id) });
+  const last = store.get('lastChap', null);
+  if (last && idx.chap[last]) root.append(h('a', { class: 'cont', href: '#/walk/' + last }, 'Continue: ' + idx.chap[last].title));
   root.append(head, lw, filterBar(rerender));
   const search = h('input', { type: 'search', placeholder: 'Chercher un objet, un lieu, un boss…', 'aria-label': 'Recherche' });
   const res = h('div');
@@ -142,20 +165,20 @@ export function walkHome(rerender) {
   root.append(search, res);
   for (const w of ['B', 'R', 'T']) {
     root.append(h('h2', null, worldLabel(w)));
-    const ul = h('ul', { class: 'list card' });
+    const g = h('div', { class: 'wgrid' });
     D.walkthrough.chapters.filter((c) => c.world === w).forEach((c) => {
       const ids = chapterRows(c).map((r) => r.id);
       const cnt = h('span', { class: 'sm' }); const b = h('i');
       const lr = lostRows(c);
       const lb = h('span', { class: 'lostbadge' });
-      const lwrap = h('span', { class: 'lostwrap' }, '⚠ perdu à jamais : ', lb);
+      const lwrap = h('span', { class: 'lostwrap' }, '⚠ ', lb);
       if (lr.length) counters.push({ kind: 'lost', el: lb, wrap: lwrap, ids: lr.map((r) => r.id) });
-      const li = h('li', null, h('a', { class: 'row chev', href: '#/walk/' + c.id },
-        h('div', { class: 'grow' }, h('div', null, c.title), h('div', { class: 'sm' }, cnt, lr.length ? [' · ', lwrap] : null), h('div', { class: 'bar' }, b))));
+      g.append(h('a', { href: '#/walk/' + c.id },
+        h('div', { class: 'nm' }, h('b', null, chapNum(c) + '. '), c.title),
+        h('div', { class: 'sm' }, cnt, lr.length ? [' · ', lwrap] : null), h('div', { class: 'bar' }, b)));
       trackBar(cnt, b, ids);
-      ul.append(li);
     });
-    root.append(ul);
+    root.append(g);
   }
   root.append(h('p', { class: 'muted' }, '« ≈ » = déduit, non vérifié. « guide » = recoupé avec un walkthrough externe. « ROM » = l\'objet/esper figure bien dans un script d\'événement. '
     + 'Les coffres (position, contenu) viennent directement de la ROM.'));
@@ -167,11 +190,13 @@ export function walkChapter(id, rerender) {
   document.body.dataset.todo = store.get('fTodo', false) ? '1' : '0';
   const chap = idx.chap[id];
   if (!chap) return h('p', null, 'Chapitre introuvable.');
+  store.set('lastChap', id);
   const root = h('div');
+  root.append(chapStrip(id));
   const ids = chapterRows(chap).map((r) => r.id);
   const t = h('b'); const bar = h('i');
-  root.append(h('div', { class: 'card' }, h('div', { class: 'muted' }, worldLabel(chap.world)), h('p', null, chap.intro),
-    h('div', null, 'Progression : ', t), h('div', { class: 'bar' }, bar)), filterBar(rerender));
+  root.append(h('div', { class: 'card' }, h('div', { class: 'hrow' }, h('span', { class: 'muted' }, worldLabel(chap.world)), t), h('p', null, chap.intro),
+    h('div', { class: 'bar' }, bar)), filterBar(rerender));
   trackBar(t, bar, ids);
   const lr = lostRows(chap);
   if (lr.length) {
@@ -186,7 +211,7 @@ export function walkChapter(id, rerender) {
       const b = h('button', { type: 'button', class: 'lostitem', 'data-lostref': r.id }, label, h('span', { class: 'sm' }, ' — ' + (loc ? loc.name : '')));
       b.addEventListener('click', () => {
         const el = document.querySelector('[data-rowid="' + r.id + '"]');
-        if (el) { el.style.display = ''; el.scrollIntoView({ behavior: 'smooth', block: 'center' }); el.classList.add('flash'); setTimeout(() => el.classList.remove('flash'), 1500); }
+        if (el) { el.style.display = ''; const sc = el.closest('section'); if (sc) sc.classList.remove('collapsed'); el.scrollIntoView({ behavior: 'smooth', block: 'center' }); el.classList.add('flash'); setTimeout(() => el.classList.remove('flash'), 1500); }
       });
       ul.append(h('li', null, b));
     });
@@ -197,7 +222,9 @@ export function walkChapter(id, rerender) {
   chap.locs.forEach((l) => {
     const sec = h('section', { class: 'card' });
     const cnt = h('span', { class: 'sm' });
-    sec.append(h('h3', null, l.name, ' ', cnt));
+    const hd = h('h3', null, l.name, ' ', cnt);
+    hd.addEventListener('click', () => sec.classList.toggle('collapsed'));
+    sec.append(hd);
     [...new Set(l.items.filter((r) => r.k === 'chest' && (r.lost || r.last)).map((r) => r.lost || r.last))]
       .forEach((t2) => sec.append(h('div', { class: 'lostbanner' }, '⚠ Dernière chance : ' + t2)));
     trackBar(cnt, h('i'), l.items.filter(checkable).map((r) => r.id));
@@ -213,5 +240,8 @@ export function walkChapter(id, rerender) {
     }
     root.append(sec);
   });
+  const all = D.walkthrough.chapters; const ci = all.findIndex((c) => c.id === id);
+  const nav = (c, lab) => (c ? h('a', { href: '#/walk/' + c.id }, lab) : h('a', { class: 'off', href: '#/walk' }, '.'));
+  root.append(h('div', { class: 'chapnav' }, nav(all[ci - 1], '‹ ' + (all[ci - 1] ? chapNum(all[ci - 1]) : '')), h('a', { href: '#/walk' }, 'All'), nav(all[ci + 1], (all[ci + 1] ? chapNum(all[ci + 1]) : '') + ' ›')));
   return root;
 }
